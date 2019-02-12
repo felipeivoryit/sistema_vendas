@@ -1,0 +1,154 @@
+{% extends "base.html" %}
+
+{% block conteudo %}
+
+<ol class="breadcrumb">
+    <li class="breadcrumb-item active">Listar Funcionário</li>
+</ol>
+
+
+<form method="GET">
+    <input id="input_busca" type="text" name="busca"/>
+    <input type="submit" value="Buscar" />
+</form>
+
+<form method="GET">
+    <select id="selection_tempo_servico" name="tempo_de_servico" value="todos">
+        <option value="todos">Todos</option>
+        <option>1</option>
+        <option>2</option>
+    </select>
+ <input type="submit" value="Filtrar" />
+</form>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">Código</th>
+      <th scope="col">Nome</th>
+      <th scope="col">Controles</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for funcionario in funcionarios %}
+      <tr>
+        <th scope="row">{{funcionario.pk}}</th>
+        <td>{{funcionario.nome}}</td>
+        <td>
+          <a type="button" href="{% url 'atualiza_funcionario' pk=funcionario.pk %}" class="btn btn-primary "><i class="far fa-arrow-alt-circle-right pr-2" aria-hidden="true"></i>Editar</a>
+        </td>
+        <td>
+          <a type="button" href="{% url 'deletar_funcionario' pk=funcionario.pk %}" class="btn btn-danger "><i class="far fa-arrow-alt-circle-right pr-2" aria-hidden="true"></i>Deletar</a>
+        </td>
+      </tr>
+    {% endfor %}
+  </tbody>
+</table>
+
+<!-- Pagination controls -->
+
+<!--
+<div class="pagination">
+    <span class="page-links">
+        {% if page_obj.has_previous %}
+            <a href="?page={{ page_obj.previous_page_number }}">anterior</a>
+        {% endif %}
+        <span class="page-current">
+            Página {{ page_obj.number }} de {{ page_obj.paginator.num_pages }}.
+        </span>
+        {% if page_obj.has_next %}
+            <a href="?page={{ page_obj.next_page_number }}">próximo</a>
+        {% endif %}
+    </span>
+</div>
+-->
+
+<div class="pagination">
+    <span class="page-links">
+        {% if page_obj.has_previous %}
+            <a href="?page={{ page_obj.previous_page_number }}{{parametros}}">anterior</a>
+        {% endif %}
+        <span class="page-current">
+            Página {{ page_obj.number }} de {{ page_obj.paginator.num_pages }}.
+        </span>
+        {% if page_obj.has_next %}
+            <a href="?page={{ page_obj.next_page_number }}{{parametros}}">próximo</a>
+        {% endif %}
+    </span>
+</div>
+
+
+<!--
+
+{% if is_paginated %}
+  <ul class="pagination">
+    {% if page_obj.has_previous %}
+      <li><a href="?page={{ page_obj.previous_page_number }}">&laquo;</a></li>
+    {% else %}
+      <li class="disabled"><span>&laquo;</span></li>
+    {% endif %}
+    {% for i in paginator.page_range %}
+      {% if page_obj.number == i %}
+        <li class="active"><span>{{ i }} <span class="sr-only">(current)</span></span></li>
+      {% else %}
+        <li><a href="?page={{ i }}">{{ i }}</a></li>
+      {% endif %}
+    {% endfor %}
+    {% if page_obj.has_next %}
+      <li><a href="?page={{ page_obj.next_page_number }}">&raquo;</a></li>
+    {% else %}
+      <li class="disabled"><span>&raquo;</span></li>
+    {% endif %}
+  </ul>
+{% endif %}
+
+-->
+
+<!-- Modal remover funcionário -->
+<div class="modal fade show" id="basicExampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Remover funcionário</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form method="post">
+          {% csrf_token %}
+          Você tem certeza que quer excluir
+          o funcionário <b>{{ funcionario.nome }}</b>?
+          <br><br>
+          <button type="button"><a href="{% url 'lista_funcionarios' %}">Cancelar</a>
+          </button>
+          <button>Excluir</button>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<script>
+
+{% if tempo_de_servico %}
+  /* Preenchendo valor select retornado */
+  $("#selection_tempo_servico").val('{{tempo_de_servico}}');
+{% endif %}
+
+{% if busca %}
+
+  $("#input_busca").val('{{busca}}');
+
+{% endif %}
+
+</script>
+
+
+{% endblock %}

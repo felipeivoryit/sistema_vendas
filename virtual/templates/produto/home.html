@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+
+{% block conteudo %}
+
+<ol class="breadcrumb">
+    <li class="breadcrumb-item active">Produtos</li>
+</ol>
+
+<div class="container mt-4">
+    <div class="row">
+      {% for produto in produtos %}
+      <div class="col-lg">
+        <div class="card">
+          <div class="card-body">
+            <!-- Title -->
+            <h4 class="card-title">
+              <h4 class="card-title">{{produto.nome}}</h4>
+              </h4>
+              <!-- Text -->
+              <div class="card-text">
+                <ul class="list-group">
+                  <li class="list-group-item d-flex justify-content-between align-items-center">
+                    {{produto.valor}}
+                    <span class="badge badge-primary badge-pill">Valor</span>
+                  </li>
+                  <li class="list-group-item d-flex justify-content-between align-items-center">
+                    {{produto.descricao}}
+                    <span class="badge badge-primary badge-pill">Descrição</span>
+                  </li>
+                  <li class="list-group-item d-flex justify-content-between align-items-center">
+                    <a type="button" href="{% url 'view_produto_detalhes' pk=produto.pk %}" class="btn btn-primary "><i class="far fa-arrow-alt-circle-right pr-2" aria-hidden="true"></i>Detalhes</a>
+                  </li>
+                </ul>
+              </div>
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+</div>
+
+{% endblock %}

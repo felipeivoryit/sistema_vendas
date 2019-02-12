@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <title>Loja virtual</title>
+
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.1/css/all.css">
+  <!-- Bootstrap core CSS -->
+  <link href="/static/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Material Design Bootstrap -->
+  <link href="/static/css/mdb.min.css" rel="stylesheet">
+  <!-- Your custom styles (optional) -->
+  <link href="/static/css/style.css" rel="stylesheet">
+  <!-- Lobibox -->
+  <link href="/static/css/lobibox.min.css" rel="stylesheet">
+
+  <!-- SCRIPTS -->
+  <!-- JQuery -->
+  <script type="text/javascript" src="/static/js/jquery-3.3.1.min.js"></script>
+  <!-- Lobibox -->
+  <script type="text/javascript" src="/static/js/lobibox.min.js"></script>
+
+  <style>
+    .invalid-feedback{
+      display: block!important;
+    }
+  </style>
+
+</head>
+<body>
+
+  <!--Navbar-->
+  <nav class="navbar navbar-expand-lg navbar-dark unique-color">
+
+    <!-- Navbar brand -->
+    <a class="navbar-brand" href="/">Loja virtual</a>
+
+    <!-- Collapse button -->
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#basicExampleNav"
+      aria-controls="basicExampleNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="basicExampleNav">
+
+      <!-- Links -->
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'view_produto_home' %}">Produto
+            <span class="sr-only">(current)</span>
+          </a>
+        </li>
+        <!-- Dropdown -->
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" id="navbarDropdownMenuFuncionario" data-toggle="dropdown" aria-haspopup="true"
+            aria-expanded="false">Funcionário</a>
+          <div class="dropdown-menu dropdown-primary" aria-labelledby="navbarDropdownMenuFuncionario">
+            <a class="dropdown-item" href="{% url 'lista_funcionarios' %}">Listar</a>
+            <a class="dropdown-item" href="{% url 'cadastra_funcionario' %}">Cadastro</a>
+          </div>
+        </li>
+
+        <!-- Dropdown -->
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" id="navbarDropdownMenuFuncionario" data-toggle="dropdown" aria-haspopup="true"
+            aria-expanded="false">Usuário</a>
+          <div class="dropdown-menu dropdown-primary" aria-labelledby="navbarDropdownMenuFuncionario">
+            <a class="dropdown-item" href="{% url 'cadastro_usuario' %}">Cadastro</a>
+            <a class="dropdown-item" href="{% url 'edicao_usuario' %}">Edição</a>
+            <a class="dropdown-item" href="{% url 'edit_password' %}">Resetar senha</a>
+          </div>
+        </li>
+
+      </ul>
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item">
+          <a class="nav-link" href="/admin">Admin
+            <span class="sr-only">(current)</span>
+          </a>
+        </li>
+      </ul>
+      <!-- Links -->
+
+      <form class="form-inline">
+        <ul class="navbar-nav mr-auto">
+          <!-- Verificando se está autenticado -->
+          {% if user.is_authenticated %}
+          <li class="nav-item"> <span class="nav-link"> Bem vindo: {{user}} </span> </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'logout' %}">Sair
+              <span class="sr-only">(current)</span>
+            </a>
+          </li>
+          {% else %}
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'login' %}">Entrar
+              <span class="sr-only">(current)</span>
+            </a>
+          </li>
+          {% endif %}
+        </ul>
+      </form>
+    </div>
+    <!-- Collapsible content -->
+
+  </nav>
+  <!--/.Navbar-->
+
+  <div class="container mt-4">
+    <!-- Conteúdo base -->
+    {% block conteudo %} {% endblock %}
+  </div>
+
+
+  <!-- Bootstrap tooltips -->
+  <script type="text/javascript" src="/static/js/popper.min.js"></script>
+  <!-- Bootstrap core JavaScript -->
+  <script type="text/javascript" src="/static/js/bootstrap.min.js"></script>
+  <!-- MDB core JavaScript -->
+  <script type="text/javascript" src="/static/js/mdb.min.js"></script>
+
+
+</body>
+</html>

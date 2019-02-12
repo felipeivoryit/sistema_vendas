@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+
+{% block conteudo %}
+
+
+<ol class="breadcrumb">
+    <li class="breadcrumb-item"><a href="{% url 'view_produto_home' %}"> Produtos</a></li>
+    <li class="breadcrumb-item active">Detalhes - produto {{produto.pk}}</li>
+</ol>
+
+
+<div class="card">
+  <div class="card-body">
+    {% if produto != None %}
+      <!-- Title -->
+      <h4 class="card-title">
+        <h4 class="card-title">{{produto.nome}}</h4>
+        </h4>
+        <!-- Text -->
+        <div class="card-text">
+          <ul class="list-group">
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+              {{produto.valor}}
+              <span class="badge badge-primary badge-pill">Valor</span>
+            </li>
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+              {{produto.descricao}}
+              <span class="badge badge-primary badge-pill">Descrição</span>
+            </li>
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+              <a type="button" class="btn btn-primary ">Comprar</a>
+            </li>
+          </ul>
+        </div>
+      {% else %}
+      <div class="alert alert-info" role="alert">
+        Não foi encontrado nenhum produto cadastrado!
+      </div>
+      {% endif %}
+  </div>
+</div>
+
+{% endblock %}

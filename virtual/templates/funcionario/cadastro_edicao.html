@@ -1,0 +1,99 @@
+{% extends "base.html" %}
+
+
+<!--                widget_tweaks
+     Ajuste a renderização do campo de formulário em modelos,
+     não em definições de formulário em nível de python.
+     A alteração de classes CSS e atributos HTML é suportada -->
+
+{% load widget_tweaks %}
+
+{% block conteudo %}
+
+<ol class="breadcrumb">
+    <li class="breadcrumb-item"><a href="{% url 'lista_funcionarios' %}"> Lista de funcionários</a></li>
+    <li class="breadcrumb-item active">Funcionário</li>
+</ol>
+
+<div class="container mt-4">
+
+    <!--
+    {% if form.errors %}
+
+      <div class="alert alert-danger">
+          <strong>{{form.errors}}</strong>
+      </div>
+    {% endif %}
+    -->
+
+    <!-- Variável fornecida pela rendenização do template. -->
+    <h4>{{variavel_titulo}}</h4>
+
+    {% if messages %}
+      <ul class="messages">
+          {% for message in messages %}
+          <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>
+              {% if message.level == DEFAULT_MESSAGE_LEVELS.ERROR %}Important: {% endif %}
+              {{ message }}
+          </li>
+          {% endfor %}
+      </ul>
+    {% endif %}
+
+    <div class="row">
+        <form class="text-center border border-light p-5 was-validated" method="post">
+            {% csrf_token %}
+
+            {{form.non_field_errors}}
+
+            {% for field in form %}
+              <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                  <span class="input-group-text" id="{{field.id_for_label}}">{{field.label}}</span>
+                </div>
+                {% render_field field|add_error_class:"is-invalid" aria-describedby+="{{field.id_for_label}}" class+='form-control' %}
+              </div>
+              <div class="invalid-feedback">
+                <!-- {{ field.errors|add_error_class:"invalid-feedback" }} -->
+              </div>
+              {% if field.errors %}
+                <ul class="list-group mt-2 mb-2">
+                  {% for error in field.errors %}
+                    <li class="list-group-item"><small class="inputVal text-danger my-5">{{ error|escape }}</small></li>
+                  {% endfor %}
+                </ul>
+              {% endif %}
+            {% endfor %}
+
+            <button class="btn btn-primary" type="submit">Cadastrar</button>
+        </form>
+    </div>
+</div>
+
+<script>
+
+  {% if variavel_sucesso %}
+    var texto;
+    if ("{{variavel_sucesso_tipo}}" == "edicao"){
+      texto = "Funcionário editado com sucesso!"
+    }
+    else{
+      texto = "Funcionário cadastrado com sucesso!"
+    }
+
+    Lobibox.notify('success', {
+      size: 'mini',
+      rounded: true,
+      delayIndicator: false,
+      msg: texto
+    });
+
+  {%endif%}
+
+  {% if form.errors.nome %}
+    console.log('{{form.nome.errors}}');
+  {%endif%}
+
+</script>
+
+{% endblock %}
