@@ -19,6 +19,18 @@ class Produto(models.Model):
         null=True,
         blank=True
     )
+    image = models.ImageField(
+        upload_to = 'produtos/images',
+        verbose_name = 'imagem',
+        null=True,
+        blank=True
+    )
+    document = models.FileField(
+        upload_to='produtos/documents',
+        verbose_name = 'documento',
+        null=True,
+        blank=True
+    )
 
     def __str__(self):
         return '{}'.format(self.pk)

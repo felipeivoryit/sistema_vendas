@@ -38,7 +38,9 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'virtual.apps.VirtualConfig',
-    'widget_tweaks'
+    'widget_tweaks',
+    'django_cleanup.apps.CleanupConfig',
+    'input_mask',
 ]
 
 MIDDLEWARE = [
@@ -123,8 +125,15 @@ STATIC_URL = '/static/'
 # Adicionando endereço para pasta com arquivos static que serão utilizado como por exemplo css, js
 STATICFILES_DIRS = (os.path.join(BASE_DIR, "static"), )
 
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
 # Auth
 LOGIN_URL = 'login'
 
 LOGIN_REDIRECT_URL = 'view_produto_home'
 LOGOUT_REDIRECT_URL = 'view_produto_home'
+
+SESSION_EXPIRE_AT_BROWSER_CLOSE = True
+# tempo de inatividade do usuário (sessao ativa)
+SESSION_COOKIE_AGE = 3000

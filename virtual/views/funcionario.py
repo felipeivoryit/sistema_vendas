@@ -80,7 +80,7 @@ class FuncionarioCreateView(SuccessMessageMixin, CreateView):
         context['variavel_titulo'] = 'Cadastrar funcionário'
         return context
 
-    success_url = reverse_lazy("cadastra_funcionario")
+    success_url = reverse_lazy("cadastro_funcionario")
 
     #def form_invalid(self, form):
     #     return self.render_to_response(self.get_context_data(form=form))

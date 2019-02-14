@@ -1,16 +1,36 @@
 {% extends "base.html" %}
 
+{% block style %}
+
+  .card-img-top{
+    max-width: 300px;
+    margin: auto;
+  }
+
+{% endblock %}
+
+{% load static %}
+
 {% block conteudo %}
 
 <ol class="breadcrumb">
     <li class="breadcrumb-item active">Produtos</li>
 </ol>
 
-<div class="container mt-4">
+<div class="container">
     <div class="row">
       {% for produto in produtos %}
-      <div class="col-lg">
+      <div class="col-lg-4">
         <div class="card">
+
+          <!-- Verificando se existe imagem cadastrada -->
+          {% if produto.image %}
+            <!-- Card image -->
+            <img class="card-img-top" src="{{ produto.image.url}}" alt="{{produto.nome}}">
+          {% else %}
+              <img class="card-img-top" src="{% static 'img/sem_imagem.png' %}" alt="{{produto.nome}}">
+          {% endif %}
+
           <div class="card-body">
             <!-- Title -->
             <h4 class="card-title">

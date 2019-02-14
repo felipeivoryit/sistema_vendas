@@ -29,6 +29,10 @@
     }
   </style>
 
+  <style>
+    {% block style %}{% endblock %}
+  </style>
+
 </head>
 <body>
 
@@ -60,7 +64,7 @@
             aria-expanded="false">Funcionário</a>
           <div class="dropdown-menu dropdown-primary" aria-labelledby="navbarDropdownMenuFuncionario">
             <a class="dropdown-item" href="{% url 'lista_funcionarios' %}">Listar</a>
-            <a class="dropdown-item" href="{% url 'cadastra_funcionario' %}">Cadastro</a>
+            <a class="dropdown-item" href="{% url 'cadastro_funcionario' %}">Cadastro</a>
           </div>
         </li>
 
@@ -72,6 +76,15 @@
             <a class="dropdown-item" href="{% url 'cadastro_usuario' %}">Cadastro</a>
             <a class="dropdown-item" href="{% url 'edicao_usuario' %}">Edição</a>
             <a class="dropdown-item" href="{% url 'edit_password' %}">Resetar senha</a>
+          </div>
+        </li>
+
+        <!-- Dropdown -->
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" id="navbarDropdownMenuFuncionario" data-toggle="dropdown" aria-haspopup="true"
+            aria-expanded="false">Gerenciar</a>
+          <div class="dropdown-menu dropdown-primary" aria-labelledby="navbarDropdownMenuFuncionario">
+            <a class="dropdown-item" href="{% url 'cadastro_produto' %}">Cadastro - produto</a>
           </div>
         </li>
 

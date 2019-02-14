@@ -1,14 +1,24 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 
+from django import forms
+
 from django.contrib import admin
 
 from .models import Cliente, Funcionario, Endereco, Produto, Venda
+
 
 class ClienteAdmin(admin.ModelAdmin):
     list_display = ['nome', 'cpf']
     # Campos para pesquisa na listagem admin
     search_fields = ['nome', 'cpf']
+
+    class Media:
+        js = (
+            'admin/js/jquery-3.3.1.min.js',
+            'admin/js/jquery.mask.js',
+            'admin/js/mask.js',
+        )
 
 class ProdutoAdmin(admin.ModelAdmin):
     list_display = ['id', 'nome', 'descricao']
@@ -18,11 +28,22 @@ class ProdutoAdmin(admin.ModelAdmin):
 class FuncionarioAdmin(admin.ModelAdmin):
     # list_display = ['id', 'nome']
     # search_fields = ['id', 'nome']
-    list_display = ['nome', 'sobrenome', 'tempo_de_servico', 'remuneracao']
+    list_display = [
+                    'nome', 'sobrenome',
+                    'tempo_de_servico',
+                    'remuneracao'
+                    ]
     list_filter = ['tempo_de_servico']
     search_fields = ['nome', 'sobrenome']
     ordering = ['nome']
     empty_value_display = 'Não informado'
+
+    class Media:
+        js = (
+            'admin/js/jquery-3.3.1.min.js',
+            'admin/js/jquery.mask.js',
+            'admin/js/mask.js',
+        )
 
 
 # Register your models here.

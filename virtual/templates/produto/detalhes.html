@@ -1,5 +1,16 @@
 {% extends "base.html" %}
 
+{% block style %}
+
+  .card-img-top{
+    max-width: 200px;
+    margin: auto;
+  }
+
+{% endblock %}
+
+{% load static %}
+
 {% block conteudo %}
 
 
@@ -10,6 +21,15 @@
 
 
 <div class="card">
+
+  <!-- Verificando se existe imagem cadastrada -->
+  {% if produto.image %}
+    <!-- Card image -->
+    <img class="card-img-top" src="{{ produto.image.url}}" alt="{{produto.nome}}">
+  {% else %}
+      <img class="card-img-top" src="{% static 'img/sem_imagem.png' %}" alt="{{produto.nome}}">
+  {% endif %}
+
   <div class="card-body">
     {% if produto != None %}
       <!-- Title -->
@@ -19,6 +39,12 @@
         <!-- Text -->
         <div class="card-text">
           <ul class="list-group">
+            <!-- Verificar se existe documento cadastrado -->
+            {% if produto.document %}
+            <li class="list-group-item d-flex justify-content-between">
+                <a type="button" class="btn btn-primary " href="{{ produto.document.url }}">Documento</a>
+            </li>
+            {% endif %}
             <li class="list-group-item d-flex justify-content-between align-items-center">
               {{produto.valor}}
               <span class="badge badge-primary badge-pill">Valor</span>
