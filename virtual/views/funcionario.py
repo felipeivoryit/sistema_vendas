@@ -11,14 +11,23 @@ from django.core.paginator import Paginator
 # biblioteca para verificar se está autenticado
 from django.contrib.auth.decorators import login_required
 
+from django.contrib.auth.decorators import user_passes_test
+from django.utils.decorators import method_decorator
+
 
 from ..models import Funcionario
 
+def not_in_funcionario_group(user):
+    if user:
+        return user.groups.filter(name='funcionario').count() == 1
+    return False
+
+@method_decorator(user_passes_test(not_in_funcionario_group), name='dispatch')
 class ListaFuncionarios(ListView):
     template_name = "funcionario/lista_funcionarios.html"
     model = Funcionario
     context_object_name = "funcionarios"
-    paginate_by = 2
+    paginate_by = 1
 
     def get_context_data(self, **kwargs):
         context = super(ListaFuncionarios, self).get_context_data(**kwargs)
@@ -68,6 +77,7 @@ class InsereFuncionarioForm(forms.ModelForm):
         ]
 
 #@login_required
+@method_decorator(user_passes_test(not_in_funcionario_group), name='dispatch')
 class FuncionarioCreateView(SuccessMessageMixin, CreateView):
 
     template_name = "funcionario/cadastro_edicao.html"

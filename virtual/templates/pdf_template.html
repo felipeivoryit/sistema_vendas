@@ -1,0 +1,35 @@
+<html>
+<head>
+  <title>Test</title>
+  <!-- Bootstrap core CSS -->
+  <link href="/static/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Material Design Bootstrap -->
+  <link href="/static/css/mdb.min.css" rel="stylesheet">
+  <style>
+    body {
+      background-color: #f7f7f7;
+    }
+  </style>
+</head>
+<body>
+  <h1>Lista de Funcionários</h1>
+
+  <table class="table">
+    <thead class="grey lighten-2">
+      <tr>
+        <th scope="col">Código</th>
+        <th scope="col">Nome</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for funcionario in funcionarios %}
+        <tr>
+          <th scope="row">{{funcionario.id}}</th>
+          <td>{{funcionario.nome}}</td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+
+</body>
+</html>

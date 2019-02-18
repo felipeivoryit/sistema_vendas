@@ -20,30 +20,31 @@
     </select>
  <input type="submit" value="Filtrar" />
 </form>
-
-<table class="table">
-  <thead>
-    <tr>
-      <th scope="col">Código</th>
-      <th scope="col">Nome</th>
-      <th scope="col">Controles</th>
-    </tr>
-  </thead>
-  <tbody>
-    {% for funcionario in funcionarios %}
+<div class="table-responsive">
+  <table class="table">
+    <thead>
       <tr>
-        <th scope="row">{{funcionario.pk}}</th>
-        <td>{{funcionario.nome}}</td>
-        <td>
-          <a type="button" href="{% url 'atualiza_funcionario' pk=funcionario.pk %}" class="btn btn-primary btn-block waves-effect waves-light"><i class="far fa-arrow-alt-circle-right pr-2" aria-hidden="true"></i>Editar</a>
-        </td>
-        <td>
-          <a type="button" href="{% url 'deletar_funcionario' pk=funcionario.pk %}" class="btn btn-danger btn-block waves-effect waves-danger "><i class="far fa-arrow-alt-circle-right pr-2" aria-hidden="true"></i>Deletar</a>
-        </td>
+        <th scope="col">Código</th>
+        <th scope="col">Nome</th>
+        <th scope="col">Controles</th>
       </tr>
-    {% endfor %}
-  </tbody>
-</table>
+    </thead>
+    <tbody>
+      {% for funcionario in funcionarios %}
+        <tr>
+          <th scope="row">{{funcionario.pk}}</th>
+          <td>{{funcionario.nome}}</td>
+          <td>
+            <a type="button" href="{% url 'atualiza_funcionario' pk=funcionario.pk %}" class="btn btn-primary btn-block waves-effect waves-light"><i class="far fa-arrow-alt-circle-right pr-2" aria-hidden="true"></i>Editar</a>
+          </td>
+          <td>
+            <a type="button" href="{% url 'deletar_funcionario' pk=funcionario.pk %}" class="btn btn-danger btn-block waves-effect waves-danger "><i class="far fa-arrow-alt-circle-right pr-2" aria-hidden="true"></i>Deletar</a>
+          </td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
 
 <!-- Pagination controls -->
 

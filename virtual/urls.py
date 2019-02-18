@@ -11,7 +11,7 @@ from . import views
 urlpatterns = [
     url(r'^$', views.produto.view_home, name='view_produto_home'),
     url(r'^produto/(?P<pk>[0-9]+)$', views.produto.view_detalhes, name='view_produto_detalhes'),
-    url(r'^produto/cadastro$', login_required(views.produto.ProdutoCreateView.as_view()), name='cadastro_produto'),
+    url(r'^produto/cadastro$', views.produto.ProdutoCreateView.as_view(), name='cadastro_produto'),
     url(r'funcionario$', views.funcionario.ListaFuncionarios.as_view(), name='lista_funcionarios'),
     url('funcionario/cadastrar$', login_required(views.funcionario.FuncionarioCreateView.as_view()), name='cadastro_funcionario'),
     url(r'^funcionario/editar/(?P<pk>[0-9]+)$', login_required(views.funcionario.FuncionarioUpdateView.as_view()), name='atualiza_funcionario'),
@@ -22,6 +22,7 @@ urlpatterns = [
     url(r'^login/cadastro$', login_required(views.usuario.register), name='cadastro_usuario'),
     url(r'^login/edicao$', login_required(views.usuario.edit), name='edicao_usuario'),
     url(r'^login/edicao/senha$', login_required(views.usuario.edit_password), name='edit_password'),
+    url(r'^pdf$', login_required(views.pdf.html_to_pdf_view), name='pdf_view'),
 ]
 
 
